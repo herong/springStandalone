@@ -25,9 +25,6 @@ public class SpringStandalone {
 	private static final CommandLineParser parser = new DefaultParser();
 	private static final String contextFile = "/conf/springContext.xml";
 
-	@Autowired
-	private TaskService taskService;
-
 	public static void main(String[] args) {
 		try {
 
@@ -60,12 +57,7 @@ public class SpringStandalone {
 	public static void startup(String args[], Options options) {
 		context = new ClassPathXmlApplicationContext(contextFile);
 		System.out.println("startup");
-		new SpringStandalone();
-	}
-
-	private SpringStandalone() {
-		context.getAutowireCapableBeanFactory().autowireBean(this);
-		taskService.start();
+		context.getBean(TaskService.class).start();
 	}
 
 }
